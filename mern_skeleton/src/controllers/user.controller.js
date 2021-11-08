@@ -1,6 +1,7 @@
 import User from '../models/user.model';
 import _ from 'lodash';
 import errorHandler from './helpers/dbErrorHandler';
+
 const create = (req, res, next) => {
     const user = new User(req.body);
     user.save((err, result) => {
@@ -10,6 +11,7 @@ const create = (req, res, next) => {
         res.status(200).json({ message: 'Successfully created a new user.' });
     });
 }
+
 const list = (req, res) => {
     User.find((err, users) => {
         if (err) {
@@ -18,6 +20,7 @@ const list = (req, res) => {
         res.status(200).json(users);
     }).select('name email updated created');
 }
+
 const userByID = (req, res, next, id) => {
     User.findById(id).exec((err, user) => {
         if (err || !user) {
@@ -27,11 +30,13 @@ const userByID = (req, res, next, id) => {
         next();
     });
 }
+
 const read = (req, res) => {
     req.profile.hashed_password = undefined;
     req.profile.salt = undefined;
     res.status(200).json(req.profile);
 }
+
 const update = (req, res, next) => {
     let user = req.profile;
     user = _.extend(user, req.body);
@@ -42,9 +47,10 @@ const update = (req, res, next) => {
         }
         user.hashed_password = undefined;
         user.salt = undefined;
-        res.json(user);
+        res.status(200).json(user);
     });
 }
+
 const remove = (req, res, next) => {
     let user = req.profile;
     user.remove((err, deletedUser) => {
@@ -56,4 +62,5 @@ const remove = (req, res, next) => {
         res.status(200).json(deletedUser);
     });
 }
+
 export default { create, list, userByID, read, update, remove };

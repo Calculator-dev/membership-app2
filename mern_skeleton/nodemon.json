@@ -1,7 +1,5 @@
 {
     "verbose": false,
-    "watch": [
-        "./src"
-    ],
+    "watch": ["./src"],
     "exec": "webpack && node ./dist/main.js"
 }

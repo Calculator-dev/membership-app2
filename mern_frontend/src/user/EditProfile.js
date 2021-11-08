@@ -13,6 +13,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import authHelper from "../auth/auth-helper";
 import  {read, update} from './api-user.js';
 import { Redirect } from "react-router-dom";
+
 const useStyles = makeStyles(theme => ({
     card: {
         maxWidth:600,
@@ -36,6 +37,7 @@ const useStyles = makeStyles(theme => ({
         marginBottom: theme.spacing(2)
     }
 }));
+
 const EditProfile = ({ match }) => {
     const classes = useStyles();
     const [values, setValues] = useState({
@@ -46,7 +48,9 @@ const EditProfile = ({ match }) => {
         error: "",
         redirectToProfile: false
     });
+
     const jwt = authHelper.isAuthenticated();
+
     useEffect(() => {
         const abortController = new AbortController();
         const signal = abortController.signal;
@@ -60,6 +64,7 @@ const EditProfile = ({ match }) => {
             });
             return function cleanup() { abortController.abort(); }
     }, [match.params.userId])
+
     const clickSubmit = () => {
         const user = {
             name: values.name || undefined,
@@ -76,10 +81,13 @@ const EditProfile = ({ match }) => {
             }
         )
     }
+
     const handleChange = name => event => {
         setValues({...values, [name]: event.target.value});
     }
+
     if (values.redirectToProfile) return (<Redirect to={'/user/' + values.userId} />);
+
     return (
         <div>
         <Card className={classes.card}>
@@ -137,4 +145,5 @@ const EditProfile = ({ match }) => {
         </div>
     )
 }
+
 export default EditProfile;

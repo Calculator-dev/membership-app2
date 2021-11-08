@@ -10,11 +10,11 @@ import {
     ListItemText,
     Avatar,
     IconButton,
-    Typography
-} from "@material-ui/core";
+    Typography } from "@material-ui/core";
 import { ArrowForward, Person } from '@material-ui/icons';
 import { Link } from "react-router-dom";
-import { list } from './api-user.js';
+import {list} from './api-user';
+
 const useStyles = makeStyles(theme => ({
     root: {
         padding: theme.spacing(1),
@@ -26,6 +26,7 @@ const useStyles = makeStyles(theme => ({
     }
 })
 );
+
 const Users = () => {
     const classes = useStyles();
     const [users, setUsers] = useState([]);
@@ -38,6 +39,7 @@ const Users = () => {
             }
         })
     }, []);
+
     return (
         <Paper className={classes.root} elevation={4}>
             <Typography variant="h6" className={classes.title}>
@@ -61,4 +63,5 @@ const Users = () => {
         </Paper>
     )
 }
+
 export default Users;

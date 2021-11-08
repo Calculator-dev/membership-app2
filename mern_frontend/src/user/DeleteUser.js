@@ -1,55 +1,66 @@
-import React, { useState } from "react"
-import PropTypes from "prop-types"
-import { IconButton, Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from "@material-ui/core"
-import DeleteIcon from "@material-ui/icons/Delete"
-import { remove } from "./api-user.js"
-import { Redirect } from "react-router-dom"
-import auth from "../auth/auth-helper"
+import React from "react";
+import { useState } from "react";
+import PropTypes from "prop-types";
+import {
+    IconButton,
+    Button,
+    Dialog,
+    DialogActions,
+    DialogContentText,
+    DialogContent,
+    DialogTitle
+} from "@material-ui/core";
+import DeleteIcon from '@material-ui/icons/Delete';
+import authHelper from "../auth/auth-helper";
+import {remove} from './api-user.js';
+import { Redirect } from "react-router-dom";
 
 const DeleteUser = props => {
-    const [open, setOpen] = useState(false)
-    const [redirect, setRedirect] = useState(false)
-
-    const jwt = auth.isAuthenticated()
-
+    const [open, setOpen] = useState(false);
+    const [redirect, setRedirect] = useState(false);
+    const jwt = authHelper.isAuthenticated();
     const clickButton = () => setOpen(true);
-    const handleRequestClose = () => setOpen(false)
-
+    const handleRequestClose = () => setOpen(false);
     const deleteAccount = () => {
         remove({ userId: props.userId }, { t: jwt.token })
-            .then(data => {
+            .then((data) => {
                 if (data && data.error) {
-                    console.log(data.error)
+                    console.log(data.error);
                 } else {
-                    auth.clearJWT(() => console.log("deleted"))
-                    setRedirect(true)
+                    authHelper.clearToken(() => console.log("deleted"));
+                    setRedirect(true);
                 }
-            })
+            }
+        );
+    
     }
 
-    if (redirect) return <Redirect to="/" />
-
-    DeleteUser.propTypes = { userId: PropTypes.string.isRequired }
+    if (redirect) return <Redirect to='/' />;
 
     return (
         <span>
-            <IconButton aria-label="Delete" onClick={clickButton} color="secondary" >
+            <IconButton aria-label="Delete" onClick={clickButton} color="secondary">
                 <DeleteIcon />
             </IconButton>
-            <Dialog open={open} onClose={handleRequestClose} >
-                <DialogTitle>{"Delete Accout"}</DialogTitle>
+            <Dialog open={open} onClose={handleRequestClose}>
+                <DialogTitle>
+                    {"Delete Account"}
+                </DialogTitle>
                 <DialogContent>
-                    <DialogContentText>Confirm to delete your account.</DialogContentText>
+                    <DialogContentText>Confirm to delete your account</DialogContentText>
                 </DialogContent>
                 <DialogActions>
-                    <Button onClick={handleRequestClose} color="primary" >Cancel</Button>
-                    <Button onClick={deleteAccount} color="secondary" autoFocus="autoFocus" >Confirm</Button>
+                    <Button onClick={handleRequestClose} color="primary">
+                        Cancel
+                    </Button>
+                    <Button onClick={deleteAccount} color="secondary" autoFocus="autoFocus">
+                        Confirm
+                    </Button>
                 </DialogActions>
             </Dialog>
         </span>
     )
 }
 
-
-
-export default DeleteUser
+DeleteUser.propTypes = { userId: PropTypes.string.isRequired };
+export default DeleteUser;

@@ -1,12 +1,11 @@
-const path = require("path");
-const htmlPlugin = require("html-webpack-plugin");
-
+const path = require('path');
+const htmlPlugin = require('html-webpack-plugin');
 module.exports = {
     mode: "development",
-    entry: path.join(__dirname, "/src/index.js"),
+    entry: path.join(__dirname, "./src/index.js"),
     output: {
         path: path.join(__dirname, "dist"),
-        filename: "[main].js",
+        filename: "main.js",
         publicPath: "/",
         sourceMapFilename: "main.js.map"
     },
@@ -15,18 +14,19 @@ module.exports = {
         static: { directory: path.join(__dirname, "dist") },
         compress: true,
         port: 3000,
-        historyApiFallback: true
+        historyApiFallback: true,
     },
     module: {
-        rules: [{
-            test: /\.jsx?$/,
-            exclude: /node_modules/,
-            use: ["babel-loader"]
-        },
-        {
-            test: /\.(ttf|eot|svg|gif|jpg|png)(\?[\s\S]+)?$/,
-            use: "file-loader"
-        }
+        rules: [
+            {
+                test: /\.jsx?$/,
+                exclude: /node_modules/,
+                use: [ "babel-loader" ]
+            },
+            {
+                test: /\.(ttf|eot|svg|gif|jpg|png)(\?[\s\S]+)?$/,
+                use: "file-loader"
+            }
         ]
     },
     plugins: [

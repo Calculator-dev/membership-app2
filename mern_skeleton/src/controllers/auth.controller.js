@@ -1,7 +1,7 @@
-import User from "../models/user.model";
-import jwt from "jsonwebtoken";
-import expressJwt from "express-jwt";
-import config from "../config/config";
+import User from '../models/user.model';
+import jwt from 'jsonwebtoken';
+import expressJwt from 'express-jwt';
+import config from '../config/config';
 
 const signin = (req, res) => {
     User.findOne({ "email": req.body.email }, (err, user) => {
@@ -15,13 +15,10 @@ const signin = (req, res) => {
                 error: "Email and password dont match"
             })
         }
-
         const token = jwt.sign({ _id: user._id }, config.secret)
-
         res.cookie("token", token, {
             expire: new Date() + 999
         })
-
         return res.status(200).json({
             token,
             user: { _id: user._id, name: user.name, email: user.email }
@@ -30,21 +27,19 @@ const signin = (req, res) => {
 }
 
 const signout = (req, res) => {
-    res.clearCookie("token")
-    return res.status(200).json({
-        message: "User signed out."
-    })
+    res.clearCookie('token');
+    res.status(200).json({ message: 'User signed out.' });
 }
 
 const requireSignin = expressJwt({
     secret: config.secret,
-    algorithms: ["HS256"],
-    userProperty: "auth"
-})
+    algorithms: ['HS256'],
+    userProperty: 'auth'
+});
 
 const hasAuthorization = (req, res, next) => {
     const authorized = req.profile && req.auth && req.profile._id == req.auth._id;
-    if (!authorized) return res.status(403).json("User is not authorized!")
+    if (!authorized) return res.status(403).json('User id not authorized!');
     next();
 }
 

@@ -1,13 +1,13 @@
-import { AppBar, Toolbar, Typography, IconButton, Button, CssBaseline } from "@material-ui/core";
+import { AppBar, Toolbar, Typography, IconButton, Button } from "@material-ui/core";
 import React from "react";
 import HomeIcon from '@material-ui/icons/Home';
-import auth from "../auth/auth-helper";
+import authHelper from "../auth/auth-helper";
 import { Link, withRouter } from "react-router-dom";
 
 const isActive = (history, path) =>
-    history.location.pathname == path ? { color: "#FF4081" } : { color: "#FFFFFF" }
-
-const Menu = ({ history }) => (
+    history.location.pathname == path ? { color: "#FF4081" } : { color: "#FFFFFF"}
+    
+const Menu = ({history}) => (
     <AppBar position="static">
         <Toolbar>
             <Typography variant="h6" color="inherit">MERN Skeleton</Typography>
@@ -20,7 +20,7 @@ const Menu = ({ history }) => (
                 <Button style={isActive(history, "/users")}>Users</Button>
             </Link>
             {
-                !auth.isAuthenticated() && (<span>
+                !authHelper.isAuthenticated() && (<span>
                     <Link to="/signup">
                         <Button style={isActive(history, "/signup")}>Sign up</Button>
                     </Link>
@@ -30,15 +30,16 @@ const Menu = ({ history }) => (
                 </span>)
             }
             {
-                auth.isAuthenticated() && (<span>
-                    <Link to={"/user/" + auth.isAuthenticated().user._id}>
-                        <Button style={isActive(history, "/user/" + auth.isAuthenticated().user._id)}>My Profile</Button>
+                authHelper.isAuthenticated() && (<span>
+                    <Link to={"/user/" + authHelper.isAuthenticated().user._id}>
+                        <Button style={isActive(history, "/user/" + authHelper.isAuthenticated().user._id)}>My Profile</Button>
                     </Link>
-                    <Button color="inherit" onClick={() => { auth.clearJWT(() => history.push('/')) }}>Sign Out</Button>
+                    <Button color="inherit" onClick={() => {
+                        authHelper.clearToken(() => history.push('/'))
+                    }}>Sign Out</Button>
                 </span>)
             }
         </Toolbar>
-        <CssBaseline />
     </AppBar>
 )
 export default withRouter(Menu);
