@@ -67,7 +67,7 @@ const Signup = () => {
                     <br />
                     <TextField id="email" label="Email" className={classes.textField} value={values.email} onChange={handleChange("email")} margin="normal" />
                     <br />
-                    <TextField id="password" label="Password" className={classes.textField} value={values.password} onChange={handleChange("password")} margin="normal" />
+                    <TextField type="password" id="password" label="Password" className={classes.textField} value={values.password} onChange={handleChange("password")} margin="normal" />
                     <br />
                     {
                         values.error && (
