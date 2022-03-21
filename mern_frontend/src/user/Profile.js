@@ -37,6 +37,7 @@ const Profile = ({ match }) => {
     const [user, setUser] = useState({});
     const [redirectToSignin, setRedirectToSignin] = useState(false);
     const jwt = authHelper.isAuthenticated();
+    
 
     useEffect(() => {
         const abortController = new AbortController()

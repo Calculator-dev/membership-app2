@@ -1,10 +1,10 @@
 import React from "react";
-import {
-    Card,
-    CardActions,
-    CardContent,
-    Button,
-    TextField,
+import { 
+    Card, 
+    CardActions, 
+    CardContent, 
+    Button, 
+    TextField, 
     Typography,
     Icon } from "@material-ui/core";
 import { useState } from "react";
@@ -51,6 +51,7 @@ const Signin = props => {
             email: values.email || undefined,
             password: values.password || undefined
         }
+
         signin(user).then((data) => {
             if (data.error) {
                 setValues({ ...values, error: data.error});
@@ -69,19 +70,19 @@ const Signin = props => {
     const { from } = props.location.state || { from: { pathname: '/' } }
 
     const { redirectToReferrer } = values
-
     if (redirectToReferrer) {
         return (<Redirect to={from} />)
     }
+
     return (
         <Card className={classes.card}>
             <CardContent>
                 <Typography variant="h6" className={classes.title}>
                     Sign In
                 </Typography>
-                <TextField
-                    id="email"
-                    type="email"
+                <TextField 
+                    id="email" 
+                    type="email" 
                     label="Email"
                     className={classes.TextField}
                     value={values.email}
@@ -89,9 +90,9 @@ const Signin = props => {
                     margin="normal"
                 />
                 <br />
-                <TextField
-                    id="password"
-                    type="password"
+                <TextField 
+                    id="password" 
+                    type="password" 
                     label="Password"
                     className={classes.TextField}
                     value={values.password}
@@ -120,6 +121,7 @@ const Signin = props => {
             </CardActions>
         </Card>
     )
+
 }
 
 export default Signin

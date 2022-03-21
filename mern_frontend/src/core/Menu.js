@@ -1,7 +1,7 @@
 import { AppBar, Toolbar, Typography, IconButton, Button } from "@material-ui/core";
 import React from "react";
 import HomeIcon from '@material-ui/icons/Home';
-import authHelper from "../auth/auth-helper";
+import auth from "../../src/auth/auth-helper"
 import { Link, withRouter } from "react-router-dom";
 
 const isActive = (history, path) =>
@@ -20,7 +20,7 @@ const Menu = ({history}) => (
                 <Button style={isActive(history, "/users")}>Users</Button>
             </Link>
             {
-                !authHelper.isAuthenticated() && (<span>
+                !auth.isAuthenticated() && (<span>
                     <Link to="/signup">
                         <Button style={isActive(history, "/signup")}>Sign up</Button>
                     </Link>
@@ -30,12 +30,12 @@ const Menu = ({history}) => (
                 </span>)
             }
             {
-                authHelper.isAuthenticated() && (<span>
-                    <Link to={"/user/" + authHelper.isAuthenticated().user._id}>
-                        <Button style={isActive(history, "/user/" + authHelper.isAuthenticated().user._id)}>My Profile</Button>
+                auth.isAuthenticated() && (<span>
+                    <Link to={"/user/" + auth.isAuthenticated().user._id}>
+                        <Button style={isActive(history, "/user/" + auth.isAuthenticated().user._id)}>My Profile</Button>
                     </Link>
                     <Button color="inherit" onClick={() => {
-                        authHelper.clearToken(() => history.push('/'))
+                        auth.clearToken(() => history.push('/'))
                     }}>Sign Out</Button>
                 </span>)
             }
