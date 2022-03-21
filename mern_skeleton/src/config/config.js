@@ -1,9 +1,9 @@
 require('dotenv').config();
 
 const config = {
-    port: process.env.PORT || 4400,
+    port: process.env.PORT || 5000,
     secret: process.env.JWT_SECRET || 'Your secret key',
-    mongo: process.env.MONGO || 'mongodb://localhost:27017/mernproject'
+    mongo: process.env.MONGO || "mongodb+srv://Vjezba:HXngOG0eRTaNxy9h@baselogin.25mbg.mongodb.net/PizzaOrderComposer?retryWrites=true&w=majority"
 }
 
 export default config;

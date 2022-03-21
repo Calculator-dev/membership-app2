@@ -7,7 +7,7 @@ export default () => {
             <title>Membership Application</title>
         </head>
         <body>
-            <div id="root">MERN FullStack</div>
+            <div id="root">Hello MERN</div>
         </body>
     </html>
     `
